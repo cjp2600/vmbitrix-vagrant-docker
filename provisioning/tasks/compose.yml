@@ -1,0 +1,3 @@
+---
+- name: start docker
+  shell: cd /vagrant/provisioning && docker-compose up -d

@@ -1,0 +1,21 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  sudo: yes
+  vars:
+    swap_file_path: /var/swap.1
+    swap_file_size_kb: 2048
+    timezone: Europe/Moscow
+    ssh_known_hosts_command: "ssh-keyscan -H -T 10"
+    ssh_known_hosts_file: "/etc/ssh/ssh_known_hosts"
+    ssh_known_hosts:
+      - stash.int
+  tasks:
+    - include: tasks/curl.yml
+    - include: tasks/docker.yml
+    - include: tasks/other.yml
+    - include: tasks/swap.yml
+    - include: tasks/timezone.yml
+    - include: tasks/compose.yml
+  handlers:
+    - include: handlers/timezone.yml

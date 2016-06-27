@@ -1,0 +1,13 @@
+- name: Add Source
+  apt_repository: repo='deb https://apt.dockerproject.org/repo ubuntu-trusty main' state=present
+
+- name: Install Docker
+  apt: name=docker-engine force=yes
+
+- name: Install Docker-Compose
+  get_url: url=https://github.com/docker/compose/releases/download/1.5.0rc1/docker-compose-Linux-x86_64 dest=/usr/local/bin/docker-compose
+
+- file: path=/usr/local/bin/docker-compose mode="a+x"
+
+- name: Reload Service
+  service: name=docker state=restarted

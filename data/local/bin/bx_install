@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+BOLD=$(tput bold)
+NR=$(tput sgr0)
+
+printf "\n"
+printf "${GREEN}Установка ${RED}${BOLD}Bitrix${NR}${NC}"
+printf "\n\n"
+
+printf "+---+--------------+----------+
+| № | ${BOLD}Редакция${NR}     | Размер   |
++---+--------------+----------+
+| 1 | ${BOLD}Старт${NR}        | 78.7 Мб  |
++---+--------------+----------+
+| 2 | ${BOLD}Стандарт${NR}     | 106.9 Мб |
++---+--------------+----------+
+| 3 | ${BOLD}Малый бизнес${NR} | 123.2 Мб |
++---+--------------+----------+
+| 4 | ${BOLD}Эксперт${NR}      | 127.7 Мб |
++---+--------------+----------+
+| 5 | ${BOLD}Бизнес${NR}       | 165.8 Мб |
++---+--------------+----------+";
+
+printf "\n"
+
+while true; do
+    read -p " Вариант редакции?: " yn
+    case $yn in
+        [1]* ) cd /var/www && wget http://www.1c-bitrix.ru/download/start_encode_php5.tar.gz && tar -zxf start_encode_php5.tar.gz && rm -rf start_encode_php5.tar.gz && break;;
+        [2]* ) cd /var/www && wget http://www.1c-bitrix.ru/download/standard_encode_php5.tar.gz && tar -zxf standard_encode_php5.tar.gz && rm -rf standard_encode_php5.tar.gz && break;;
+        [3]* ) cd /var/www && wget http://www.1c-bitrix.ru/download/small_business_encode_php5.tar.gz && tar -zxf small_business_encode_php5.tar.gz  && rm -rf small_business_encode_php5.tar.gz && break;;
+        [4]* ) cd /var/www && wget http://www.1c-bitrix.ru/download/expert_encode_php5.tar.gz && tar -zxf expert_encode_php5.tar.gz && rm -rf small_business_encode_php5.tar.gz && break;;
+        [5]* ) cd /var/www && wget http://www.1c-bitrix.ru/download/business_encode_php5.tar.gz && tar -zxf business_encode_php5.tar.gz && rm -rf business_encode_php5.tar.gz && break;;
+        [6]* ) break;;
+        * ) echo "Не найден вариант редакции";;
+    esac
+done
+
+cd /var/www
+mkdir local;
+mkdir local/php_interface;
+touch local/php_interface/init.php
+printf '<?php if(!defined("B_PROLOG_INCLUDED")||B_PROLOG_INCLUDED!==true)die(); %s\n require_once $_SERVER["DOCUMENT_ROOT"] . "/vendor/autoload.php";' >> local/php_interface/init.php
+
+cp -f /vagrant/data/config/composer.json /var/www/composer.json
+composer update

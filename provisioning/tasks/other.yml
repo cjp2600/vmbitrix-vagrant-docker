@@ -1,0 +1,16 @@
+---
+- name: Добавляем vagrant в группу docker 
+  shell: sudo usermod -aG docker vagrant
+  tags: vagrant
+
+- name: Команда для composer
+  shell: cp -f /vagrant/data/local/bin/composer /usr/local/bin/composer
+  tags: composer
+
+- name: Команда установки bitrix
+  shell: cp -f /vagrant/data/local/bin/bx_install /usr/local/bin/bx_install
+  tags: composer
+
+- name: Команда для bim
+  shell: cp -f /vagrant/data/local/bin/bim /usr/local/bin/bim
+  tags: bim

@@ -1,0 +1,20 @@
+{
+  "autoload": {
+  },
+  "extra": {
+    "installer-paths": {
+      "local/components/vendor/{$name}/": [
+        "type:bitrix-component"
+      ],
+      "local/modules/{$name}/": [
+        "type:bitrix-module"
+      ],
+      "local/templates/{$name}/": [
+        "type:bitrix-theme"
+      ]
+    }
+  },
+  "require": {
+     "cjp2600/bim-core": ">=0.0.1"
+  }
+}

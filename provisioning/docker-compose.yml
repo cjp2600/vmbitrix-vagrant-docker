@@ -1,0 +1,9 @@
+bitrixapp:
+  container_name: bitrixapp
+  image: cjp2600/bitrix
+  volumes:
+    - /var/www:/home/bitrix/www
+  expose:
+    - "80"
+  ports:
+    - "80:80"
